@@ -124,10 +124,12 @@ export async function runCleanup(app: App, settings: FileCleanerSettings) {
     `Found ${filesToRemove.length} files and ${foldersToRemove.length} folders to clean up.`,
   );
 
-  const filesAndFolders: TAbstractFile[] = [...filesToRemove];
-  filesAndFolders.push(...foldersToRemove.reverse());
+  const filesAndFolders = new Set([
+    ...filesToRemove,
+    ...foldersToRemove.reverse(),
+  ]);
 
-  if (filesAndFolders.length === 0)
+  if (filesAndFolders.size === 0)
     new Notice(translate().Notifications.NoFileToClean);
   else {
     if (!settings.deletionConfirmation)
