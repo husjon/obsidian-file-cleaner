@@ -104,7 +104,7 @@ export function DeletionConfirmationModal({
   if (files.length > 0) {
     filesEl.createEl("p", {
       text: translate().Modals.DeletionConfirmation.Files + ":",
-    });
+    }).style.marginBottom = "0.25rem";
     files.map((file) => {
       checkbox(app, filesEl, file, filesAndFolders.has(file), updateItems);
     });
@@ -116,7 +116,7 @@ export function DeletionConfirmationModal({
   if (folders.length > 0) {
     foldersEl.createEl("p", {
       text: translate().Modals.DeletionConfirmation.Folders + ":",
-    });
+    }).style.marginBottom = "0.25rem";
     folders.map((file) => {
       checkbox(app, foldersEl, file, filesAndFolders.has(file), updateItems);
     });
