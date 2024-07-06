@@ -55,7 +55,7 @@ export class ConfirmationModal extends Modal {
 
 interface DeletionConfirmationModalProps {
   app: App;
-  files: TAbstractFile[];
+  files: Set<TAbstractFile>;
   onConfirm?: () => void;
 }
 export function DeletionConfirmationModal({
@@ -72,7 +72,7 @@ export function DeletionConfirmationModal({
     onConfirm,
   );
 
-  const files = filesAndFolders.filter((file) => file instanceof TFile);
+  const files = [...filesAndFolders].filter((file) => file instanceof TFile);
   if (files.length > 0) {
     modal.content.createEl("p", {
       text: translate().Modals.DeletionConfirmation.Files + ":",
@@ -88,7 +88,9 @@ export function DeletionConfirmationModal({
     });
   }
 
-  const folders = filesAndFolders.filter((file) => file instanceof TFolder);
+  const folders = [...filesAndFolders].filter(
+    (file) => file instanceof TFolder,
+  );
   if (folders.length > 0) {
     modal.content.createEl("p", {
       text: translate().Modals.DeletionConfirmation.Folders + ":",

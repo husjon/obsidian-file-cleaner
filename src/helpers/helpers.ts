@@ -22,11 +22,11 @@ async function removeFile(
 }
 
 export async function removeFiles(
-  files: TAbstractFile[],
+  files: Set<TAbstractFile>,
   app: App,
   settings: FileCleanerSettings,
 ) {
-  if (files.length > 0) {
+  if (files.size > 0) {
     for (const file of files) {
       removeFile(file, app, settings);
     }
