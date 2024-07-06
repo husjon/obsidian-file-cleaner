@@ -122,6 +122,10 @@ export function DeletionConfirmationModal({
     });
   }
 
+  modal.content.createEl("p", {
+    text: translate().Modals.DeletionConfirmation.Note,
+  });
+
   modal.open();
 }
 

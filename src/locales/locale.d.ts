@@ -88,6 +88,8 @@ export interface Locale {
 
       Files: string;
       Folders: string;
+
+      Note: string;
     };
 
     ButtonConfirm: string;

@@ -101,6 +101,8 @@ const enUS: Locale = {
 
       Files: "Files",
       Folders: "Folders",
+
+      Note: "Only selected files and folders will be removed",
     },
 
     ButtonCancel: "Cancel",
