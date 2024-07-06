@@ -92,19 +92,21 @@ export function DeletionConfirmationModal({
     onConfirm,
   );
 
+  function updateItems(file: TAbstractFile, checked: boolean) {
+    if (checked) filesAndFolders.add(file);
+    else filesAndFolders.delete(file);
+  }
+
+  const filesEl = modal.content.createDiv();
+  const foldersEl = modal.content.createDiv();
+
   const files = [...filesAndFolders].filter((file) => file instanceof TFile);
   if (files.length > 0) {
-    modal.content.createEl("p", {
+    filesEl.createEl("p", {
       text: translate().Modals.DeletionConfirmation.Files + ":",
     });
-    const ulFiles = modal.content.createEl("ul");
-    files.map((file: TFile) => {
-      const li = ulFiles.createEl("li");
-      li.createEl("a", { text: file.path });
-      li.onClickEvent(async () => {
-        const leaf = await app.workspace.getLeaf();
-        leaf.openFile(file);
-      });
+    files.map((file) => {
+      checkbox(app, filesEl, file, filesAndFolders.has(file), updateItems);
     });
   }
 
@@ -112,13 +114,11 @@ export function DeletionConfirmationModal({
     (file) => file instanceof TFolder,
   );
   if (folders.length > 0) {
-    modal.content.createEl("p", {
+    foldersEl.createEl("p", {
       text: translate().Modals.DeletionConfirmation.Folders + ":",
     });
-    const ulFolders = modal.content.createEl("ul");
     folders.map((file) => {
-      const li = ulFolders.createEl("li");
-      li.createEl("a", { text: file.path });
+      checkbox(app, foldersEl, file, filesAndFolders.has(file), updateItems);
     });
   }
 
