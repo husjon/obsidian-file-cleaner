@@ -53,6 +53,26 @@ export class ConfirmationModal extends Modal {
   }
 }
 
+function checkbox(
+  app: App,
+  parentEl: Node,
+  file: TAbstractFile,
+  checked: boolean,
+  onUpdate?: (file: TAbstractFile, checked: boolean) => {} | void,
+) {
+  const checkboxEl = parentEl.createDiv();
+  const input = checkboxEl.createEl("input");
+  input.type = "checkbox";
+  input.id = file.path;
+  input.checked = checked;
+
+  const label = checkboxEl.createEl("a", { text: file.path });
+  label.onClickEvent(async () => {
+    const leaf = app.workspace.getLeaf();
+    leaf.openFile(file as TFile);
+  });
+  input.onClickEvent((e) => onUpdate(file, input.checked));
+}
 interface DeletionConfirmationModalProps {
   app: App;
   files: Set<TAbstractFile>;
